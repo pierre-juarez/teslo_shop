@@ -1,1 +1,23 @@
 include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    - prefer_single_quotes # Prefiere comillas simples en lugar de dobles
+    - require_trailing_commas # Requiere coma final en listas/multilíneas (útil para difs y formato)
+    - prefer_final_locals # Usa `final` para variables locales que no cambian
+    - prefer_const_constructors # Usa constructores `const` cuando sea posible
+    - prefer_const_literals_to_create_immutables # Usa listas/mapas/sets `const` cuando no cambian
+    - avoid_unnecessary_containers # Evita usar Containers innecesarios
+    - unnecessary_brace_in_string_interps # Evita llaves innecesarias en interpolaciones de strings (`'Hola $nombre'` en vez de `'Hola ${nombre}'`)
+    - directives_ordering # Ordena los imports: primero Dart, luego paquetes, luego locales
+    - avoid_empty_else # Evita bloques `else {}` vacíos
+    - unnecessary_new # Evita usar `new`, ya no es necesario en Dart moderno
+    - avoid_print # Evita `print()`, sugiere usar logs más adecuados (como `logger`)
+    - always_put_control_body_on_new_line # Requiere que `if`, `else`, `for`, etc., tengan el cuerpo en nueva línea
+    - always_put_required_named_parameters_first # Coloca los parámetros nombrados requeridos antes que los opcionales
+    - avoid_returning_null_for_void # Evita retornar `null` en funciones `void`
+    - sort_constructors_first # Coloca los constructores al inicio de la clase
+    - sort_unnamed_constructors_first # Coloca los constructores sin nombre antes que los con nombre
+    - always_declare_return_types # Exige declarar siempre el tipo de retorno (incluso si es `void`)
+    - no_duplicate_case_values # Evita tener valores duplicados en un `switch`
+    - unnecessary_lambdas # Evita lambdas innecesarias cuando puedes pasar directamente la función

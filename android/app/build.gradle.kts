@@ -8,7 +8,7 @@ plugins {
 android {
     namespace = "com.example.teslo_shop"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = android.ndkVersion
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
