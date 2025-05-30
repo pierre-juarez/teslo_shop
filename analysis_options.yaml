@@ -13,7 +13,7 @@ linter:
     - avoid_empty_else # Evita bloques `else {}` vacíos
     - unnecessary_new # Evita usar `new`, ya no es necesario en Dart moderno
     - avoid_print # Evita `print()`, sugiere usar logs más adecuados (como `logger`)
-    - always_put_control_body_on_new_line # Requiere que `if`, `else`, `for`, etc., tengan el cuerpo en nueva línea
+    #- always_put_control_body_on_new_line # Requiere que `if`, `else`, `for`, etc., tengan el cuerpo en nueva línea
     - always_put_required_named_parameters_first # Coloca los parámetros nombrados requeridos antes que los opcionales
     - avoid_returning_null_for_void # Evita retornar `null` en funciones `void`
     - sort_constructors_first # Coloca los constructores al inicio de la clase
