@@ -2,7 +2,7 @@ import 'package:teslo_shop/features/auth/domain/domain.dart';
 import 'package:teslo_shop/features/auth/infrastructure/datasources/auth_datasource_impl.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
-  AuthRepositoryImpl(AuthDataSource? dataSource) : dataSource = dataSource ?? AuthDatasourceImpl();
+  AuthRepositoryImpl({AuthDataSource? dataSource}) : dataSource = dataSource ?? AuthDatasourceImpl();
 
   final AuthDataSource dataSource;
 
