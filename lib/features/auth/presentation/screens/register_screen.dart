@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:teslo_shop/features/auth/presentation/providers/auth_provider.dart';
 import 'package:teslo_shop/features/auth/presentation/providers/register_form_provider.dart';
 import 'package:teslo_shop/features/shared/shared.dart';
 
@@ -43,7 +44,7 @@ class RegisterScreen extends StatelessWidget {
                 const SizedBox(height: 50),
 
                 Container(
-                  height: size.height - 90, // 80 los dos sizebox y 100 el ícono
+                  height: size.height - 14, // 80 los dos sizebox y 100 el ícono
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: scaffoldBackgroundColor,
@@ -63,11 +64,31 @@ class RegisterScreen extends StatelessWidget {
 class _RegisterForm extends ConsumerWidget {
   const _RegisterForm();
 
+  void showSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  void goToLogin(BuildContext context) {
+    if (context.canPop()) {
+      return context.pop();
+    }
+    context.go('/login');
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final registerForm = ref.watch(registerFormProvider);
 
     final textStyles = Theme.of(context).textTheme;
+
+    ref.listen(authProvider, (previous, next) {
+      if (next.errorMessage.isEmpty) return;
+      showSnackBar(context, next.errorMessage);
+      if (next.errorMessage.contains('creado')) {
+        goToLogin(context);
+      }
+    });
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -118,7 +139,6 @@ class _RegisterForm extends ConsumerWidget {
               text: 'Crear',
               buttonColor: Colors.black,
               onPressed: () {
-                print('🚀 ~ file: register_screen.dart ~ line: 121 ~ TM_FUNCTION: ');
                 ref.read(registerFormProvider.notifier).onFormSubmit();
               },
             ),
@@ -130,15 +150,7 @@ class _RegisterForm extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text('¿Ya tienes cuenta?'),
-              TextButton(
-                onPressed: () {
-                  if (context.canPop()) {
-                    return context.pop();
-                  }
-                  context.go('/login');
-                },
-                child: const Text('Ingresa aquí'),
-              ),
+              TextButton(onPressed: () => goToLogin(context), child: const Text('Ingresa aquí')),
             ],
           ),
 
