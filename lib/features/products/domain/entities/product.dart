@@ -16,7 +16,7 @@ class Product {
   });
   String id;
   String title;
-  int price;
+  double price;
   String description;
   String slug;
   int stock;
