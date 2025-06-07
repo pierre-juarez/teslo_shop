@@ -2,7 +2,7 @@ import 'package:teslo_shop/features/products/domain/entities/product.dart';
 
 abstract class ProductsDataSource {
   Future<List<Product>> getProductsByPage({int limit = 10, int offset = 0});
-  Future<List<Product>> getProductById(String id);
+  Future<Product> getProductById(String id);
 
   // TODO: Implement methods
   Future<List<Product>> getProductsByTerm(String term);

@@ -4,8 +4,8 @@ import 'package:teslo_shop/features/products/domain/entities/product.dart';
 import 'package:teslo_shop/features/products/domain/repositories/products_repository.dart';
 import 'product_repository_provider.dart';
 
-class ProductState {
-  ProductState({this.isLastPage = false, this.limit = 10, this.offset = 0, this.isLoading = false, this.products = const []});
+class ProductsState {
+  ProductsState({this.isLastPage = false, this.limit = 10, this.offset = 0, this.isLoading = false, this.products = const []});
 
   final bool isLastPage;
   final int limit;
@@ -13,8 +13,8 @@ class ProductState {
   final bool isLoading;
   final List<Product> products;
 
-  ProductState copyWith({bool? isLastPage, int? limit, int? offset, bool? isLoading, List<Product>? products}) {
-    return ProductState(
+  ProductsState copyWith({bool? isLastPage, int? limit, int? offset, bool? isLoading, List<Product>? products}) {
+    return ProductsState(
       isLastPage: isLastPage ?? this.isLastPage,
       limit: limit ?? this.limit,
       offset: offset ?? this.offset,
@@ -24,8 +24,8 @@ class ProductState {
   }
 }
 
-class ProductsNotifier extends StateNotifier<ProductState> {
-  ProductsNotifier({required this.productsRepository}) : super(ProductState()) {
+class ProductsNotifier extends StateNotifier<ProductsState> {
+  ProductsNotifier({required this.productsRepository}) : super(ProductsState()) {
     loadNextPage();
   }
 
@@ -51,7 +51,7 @@ class ProductsNotifier extends StateNotifier<ProductState> {
   }
 }
 
-final productsProvider = StateNotifierProvider<ProductsNotifier, ProductState>((ref) {
+final productsProvider = StateNotifierProvider<ProductsNotifier, ProductsState>((ref) {
   final productsRepository = ref.watch(productsRepositoryProvider);
   return ProductsNotifier(productsRepository: productsRepository);
 });
