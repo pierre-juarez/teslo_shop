@@ -178,7 +178,7 @@ class ProductFormNotifier extends StateNotifier<ProductFormState> {
   final void Function(Map<String, dynamic> productLike)? onSubmitCallback;
 }
 
-final productFormNotifier = StateNotifierProvider.autoDispose.family<ProductFormNotifier, ProductFormState, Product>((
+final productFormProvider = StateNotifierProvider.autoDispose.family<ProductFormNotifier, ProductFormState, Product>((
   ref,
   product,
 ) {
