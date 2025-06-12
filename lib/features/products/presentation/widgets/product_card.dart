@@ -28,7 +28,7 @@ class _ImageViewer extends StatelessWidget {
     if (images.isEmpty) {
       return ClipRRect(
         borderRadius: BorderRadius.circular(20),
-        child: Image.asset('assets/images/no_image.png', fit: BoxFit.cover, height: 250),
+        child: Image.asset('assets/images/no-image.jpg', fit: BoxFit.cover, height: 250),
       );
     }
     return ClipRRect(
