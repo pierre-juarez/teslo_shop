@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:formz/formz.dart';
 import 'package:teslo_shop/config/config.dart';
 import 'package:teslo_shop/features/products/domain/domain.dart';
+import 'package:teslo_shop/features/products/presentation/providers/providers.dart';
 import 'package:teslo_shop/features/shared/shared.dart';
 
 class ProductFormState {
@@ -77,6 +78,8 @@ class ProductFormNotifier extends StateNotifier<ProductFormState> {
         ),
       );
 
+  final Future<bool> Function(Map<String, dynamic> productLike)? onSubmitCallback;
+
   Future<bool> onFormSubmit() async {
     _touchedEverything();
     if (!state.isFormValid) return false;
@@ -93,11 +96,14 @@ class ProductFormNotifier extends StateNotifier<ProductFormState> {
       'sizes': state.sizes,
       'gender': state.gender,
       'tags': state.tags.split(','),
-      'images': state.images.map((image) => image.replaceAll('${Environment.apiUrl}/files/product', '')).toList(),
+      'images': state.images.map((image) => image.replaceAll('${Environment.apiUrl}/files/product/', '')).toList(),
     };
 
-    return true;
-    // TODO: call onSubmitCallback
+    try {
+      return onSubmitCallback!(productLike);
+    } catch (e) {
+      return false;
+    }
   }
 
   void _touchedEverything() {
@@ -174,15 +180,14 @@ class ProductFormNotifier extends StateNotifier<ProductFormState> {
   void onTagsChanged(String tags) {
     state = state.copyWith(tags: tags);
   }
-
-  final void Function(Map<String, dynamic> productLike)? onSubmitCallback;
 }
 
 final productFormProvider = StateNotifierProvider.autoDispose.family<ProductFormNotifier, ProductFormState, Product>((
   ref,
   product,
 ) {
-  // TODO: CreateUpdateCallback
+  // final createUpdateCallback = ref.watch(productsRepositoryProvider).createUpdateProduct;
+  final createUpdateCallback = ref.watch(productsProvider.notifier).createOrUpdateProduct;
 
-  return ProductFormNotifier(product: product);
+  return ProductFormNotifier(product: product, onSubmitCallback: createUpdateCallback);
 });
