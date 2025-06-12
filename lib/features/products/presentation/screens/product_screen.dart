@@ -19,21 +19,25 @@ class ProductScreen extends ConsumerWidget {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Producto actualizado!')));
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Editar producto'),
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.camera_alt_outlined))],
-      ),
-      body: productState.isLoading ? const FullScreenLoader() : _ProductView(product: productState.product!),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          if (productState.product == null) return;
-          ref.read(productFormProvider(productState.product!).notifier).onFormSubmit().then((value) {
-            if (!value) return;
-            if (context.mounted) showSnackbar(context);
-          });
-        },
-        child: const Icon(Icons.save_as_outlined),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Editar producto'),
+          actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.camera_alt_outlined))],
+        ),
+        body: productState.isLoading ? const FullScreenLoader() : _ProductView(product: productState.product!),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            FocusScope.of(context).unfocus();
+            if (productState.product == null) return;
+            ref.read(productFormProvider(productState.product!).notifier).onFormSubmit().then((value) {
+              if (!value) return;
+              if (context.mounted) showSnackbar(context);
+            });
+          },
+          child: const Icon(Icons.save_as_outlined),
+        ),
       ),
     );
   }
@@ -164,6 +168,7 @@ class _SizeSelector extends StatelessWidget {
           }).toList(),
       selected: Set.from(selectedSizes),
       onSelectionChanged: (newSelection) {
+        FocusScope.of(context).unfocus();
         onSizesChanged(List.from(newSelection));
       },
       multiSelectionEnabled: true,
@@ -195,6 +200,7 @@ class _GenderSelector extends StatelessWidget {
             }).toList(),
         selected: {selectedGender},
         onSelectionChanged: (newGender) {
+          FocusScope.of(context).unfocus();
           onGenderChanged(newGender.first);
         },
       ),
