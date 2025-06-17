@@ -99,3 +99,8 @@ dart run change_app_package_name:main com.new.package.name --ios
 ```
 
 Where com.new.package.name is the new package name that you want for your app. replace it with any name you want.
+
+Para cambiar el splash screen
+```bash
+flutter pub run flutter_native_splash:create
+```
