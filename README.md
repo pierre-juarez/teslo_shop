@@ -75,3 +75,27 @@ Esto asegura que tu código esté bien formateado, libre de errores y siguiendo 
 ---
 
 ¡Listo! Con esto mantendrás tu proyecto en buena forma y tu código más profesional 😎.
+
+# Deploy PROD
+
+Para cambiar el name de la aplicación
+
+Run this command to change the package name for both platforms.
+
+```bash
+dart run change_app_package_name:main com.new.package.name
+```
+
+To rename only Android:
+
+```bash
+dart run change_app_package_name:main com.new.package.name --android
+```
+
+To rename only IOS:
+
+```bash
+dart run change_app_package_name:main com.new.package.name --ios
+```
+
+Where com.new.package.name is the new package name that you want for your app. replace it with any name you want.
